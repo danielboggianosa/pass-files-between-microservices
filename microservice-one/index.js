@@ -1,4 +1,3 @@
-// init api rest usin express and multer to upload a file and pass it to another microservices, run it on port 3000
 const express = require('express');
 const multer = require('multer');
 const app = express();

@@ -1,4 +1,3 @@
-// init api rest using express and multer to upload a file and save it in a folder, run it on port 3001
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
