@@ -4,15 +4,19 @@ const multer = require('multer');
 const path = require('path');
 
 const app = express();
-const upload = multer({
-    dest: 'uploads/',
-    filename: (req, file, cb) => {
-        const uuidv4 = crypto.randomUUID().replace(/-/g, '').substring(0, 20)
-        const extension = file.originalname.split('.').pop();
+const storage = multer
+    .diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/')
+        },
+        filename: (req, file, cb) => {
+            const uuidv4 = crypto.randomUUID().replace(/-/g, '').substring(0, 20)
+            const extension = file.originalname.split('.').pop();
 
-        cb(null, uuidv4 + path.extname(file.originalname) + '.' + extension);
-    },
-});
+            cb(null, uuidv4 + path.extname(file.originalname) + '.' + extension);
+        },
+    });
+const upload = multer({ storage: storage });
 app.use(express.static('public'));
 
 app.post('/upload', upload.single('file'), (req, res) => {
